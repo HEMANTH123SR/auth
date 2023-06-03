@@ -8,10 +8,26 @@ const standardExpressFunction=(requestObj,responseObj,nextMiddleWare)=>{
 }
 
 const middleWareFunction=(req,res,next)=>{
-    console.log('i am middle ware')
+    console.log('i am middleware#1')
+    // res.send('<h1>i am tea pot</h1>')
     next()
 }
-app.get('/',middleWareFunction,standardExpressFunction)
+
+const middleWareFunction2 = (req, res, next) => {
+  console.log("i am middleware#2");
+  // res.send('<h1>i am tea pot</h1>')
+  next();
+};
+
+const errorHandler=(err,req,res,next)=>{
+if(err){
+    res.send('<h1>there was an error</h1>')
+}
+}
+
+app.use(middleWareFunction);
+app.use(middleWareFunction2);
+app.get('/',standardExpressFunction)
 
 
 app.listen(3000,()=>{
